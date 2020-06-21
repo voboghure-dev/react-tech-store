@@ -13,7 +13,7 @@ const SideCart = (props) => {
             <ul>
               {cart.map((item) => {
                 return (
-                  <li className="cart-item mb-4">
+                  <li className="cart-item mb-4" key={item.id}>
                     <img
                       width="35"
                       src={`../${item.image}`}
