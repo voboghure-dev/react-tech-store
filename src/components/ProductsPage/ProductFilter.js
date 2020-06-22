@@ -16,13 +16,20 @@ const ProductFilter = (props) => {
           storeProducts,
           handleChange,
         } = value;
+        let companies = new Set();
+        companies.add("all");
+        for (let product in storeProducts) {
+          companies.add(storeProducts[product]["company"]);
+        }
+        companies = [...companies];
+        console.log(companies);
         return (
           <div className="row my-5">
             <div className="col-10 mx-auto">
               <FilterWrapper>
                 {/* text search */}
                 <div>
-                  <lable htmlFor="search">search products</lable>
+                  <label htmlFor="search">search products</label>
                   <input
                     type="text"
                     name="search"
@@ -35,7 +42,7 @@ const ProductFilter = (props) => {
                 {/* end of text search */}
                 {/* company */}
                 <div>
-                  <lable htmlFor="company">company</lable>
+                  <label htmlFor="company">company</label>
                   <select
                     name="company"
                     id="company"
@@ -43,19 +50,26 @@ const ProductFilter = (props) => {
                     onChange={handleChange}
                     value={company}
                   >
-                    <option value="all">all</option>
+                    {/* <option value="all">all</option>
                     <option value="fuji">fuji</option>
-                    <option value="htc">htc</option>
+                    <option value="htc">htc</option> */}
+                    {companies.map((company, index) => {
+                      return (
+                        <option key={index} value={company}>
+                          {company}
+                        </option>
+                      );
+                    })}
                   </select>
                 </div>
                 {/* end of company */}
                 {/* price range */}
                 <div>
-                  <lable htmlFor="price">
+                  <label htmlFor="price">
                     <p className="mb-2">
                       product price: <span>$ {price}</span>
                     </p>
-                  </lable>
+                  </label>
                   <input
                     type="range"
                     name="price"
@@ -70,15 +84,15 @@ const ProductFilter = (props) => {
                 {/* end of price range */}
                 {/* free shipping */}
                 <div>
-                  <lable htmlFor="shipping" className="mx-2">
+                  <label htmlFor="shipping" className="mx-2">
                     free shipping
-                  </lable>
+                  </label>
                   <input
                     type="checkbox"
                     name="shipping"
                     id="shipping"
                     onChange={handleChange}
-                    value={shipping && true}
+                    checked={shipping && true}
                   />
                 </div>
                 {/* end of free shipping */}
